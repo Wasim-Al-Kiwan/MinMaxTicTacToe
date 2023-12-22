@@ -1,5 +1,5 @@
 # Flutter Tic Tac Toe
-![alt text]([https://github.com/[username]/[reponame]/blob/[branch]/image.jpg](https://github.com/Wasim-Al-Kiwan/MinMaxTicTacToe/blob/master/myImage.png)?raw=true)
+![plot]([https://github.com/[username]/[reponame]/blob/[branch]/image.jpg](https://github.com/Wasim-Al-Kiwan/MinMaxTicTacToe/blob/master/myImage.png)?raw=true)
 
 This is a Tic Tac Toe game built using Flutter and the Bloc pattern. It offers a fun and interactive way to play the classic game, with support for playing against a friend or the computer.
 
