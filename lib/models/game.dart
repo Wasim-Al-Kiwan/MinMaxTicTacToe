@@ -45,20 +45,4 @@ class GameState {
   }
 }
 
-// Function to evaluate the state of the game
-int evaluate(GameState state) {
-  // Add your logic to evaluate the state
-  // Return 10 if the computer (assume O) wins, -10 if the human (X) wins, 0 otherwise
-return 10;
-}
 
-bool isMovesLeft(GameState state) {
-  for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 3; j++) {
-      if (state.board[i][j] == Player.None) {
-        return true;
-      }
-    }
-  }
-  return false;
-}

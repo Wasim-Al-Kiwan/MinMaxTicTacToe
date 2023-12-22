@@ -48,31 +48,42 @@ class _GamePageState extends State<GamePage> {
         title: Text('Choose Game Mode'),
         content: Text(
             'Do you want to play against a friend, an easy computer, or a hard computer?'),
+        actionsAlignment: MainAxisAlignment.center,
         actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              context.read<GameCubit>().setGameMode(GameMode.AgainstFriend);
-            },
-            child: Text('Friend'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  context.read<GameCubit>().setGameMode(GameMode.AgainstFriend);
+                },
+                child: Text('Friend'),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              context
-                  .read<GameCubit>()
-                  .setGameMode(GameMode.AgainstComputerEasy);
-            },
-            child: Text('Computer - Easy'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              context
-                  .read<GameCubit>()
-                  .setGameMode(GameMode.AgainstComputerHard);
-            },
-            child: Text('Computer - Hard'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  context
+                      .read<GameCubit>()
+                      .setGameMode(GameMode.AgainstComputerEasy);
+                },
+                child: Text('Computer - Easy'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  context
+                      .read<GameCubit>()
+                      .setGameMode(GameMode.AgainstComputerHard);
+                },
+                child: Text('Computer - Hard'),
+              ),
+            ],
           ),
         ],
       ),
@@ -98,8 +109,7 @@ class _GamePageState extends State<GamePage> {
         ],
       ),
       body: Container(
-        color: Colors.grey[200], // Light grey background
-
+        color: Colors.grey[200],
         child: Column(
           children: [
             Padding(
@@ -110,14 +120,13 @@ class _GamePageState extends State<GamePage> {
                     padding:
                         EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                     decoration: BoxDecoration(
-                      color: Colors.blueGrey[100], // Light grey background
+                      color: Colors.blueGrey[100],
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(Icons.close, color: xColor),
-                        // X icon
                         SizedBox(width: 8.0),
                         Text(
                           'X: ${state.scoreX}',
@@ -129,7 +138,6 @@ class _GamePageState extends State<GamePage> {
                         ),
                         SizedBox(width: 24.0),
                         Icon(Icons.radio_button_unchecked, color: oColor),
-                        // O icon
                         SizedBox(width: 8.0),
                         Text(
                           'O: ${state.scoreO}',
@@ -182,29 +190,19 @@ class _GamePageState extends State<GamePage> {
                           InkWell(
                             onTap: () {
                               context.read<GameCubit>().markCell(row, col);
-
-                              // context
-                              //     .read<GameCubit>()
-                              //     .makeAIMove(); // Call this after player move
                             },
                             child: Container(
                               decoration: BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(
-                                    color:index%2==1?xColor: oColor
-                                  ),
+                                      color: index % 2 == 1 ? xColor : oColor),
                                   top: BorderSide(
-                                      color:index%2==0?xColor: oColor
-                                  ),
-                                  left:  BorderSide(
-                                      color:index%2==0?xColor: oColor
-                                  ),
-                                  right:  BorderSide(
-                                      color:index%2==1?xColor: oColor
-                                  ),
-
+                                      color: index % 2 == 0 ? xColor : oColor),
+                                  left: BorderSide(
+                                      color: index % 2 == 0 ? xColor : oColor),
+                                  right: BorderSide(
+                                      color: index % 2 == 1 ? xColor : oColor),
                                 ),
-
                               ),
                               child: Center(
                                 child: Text(

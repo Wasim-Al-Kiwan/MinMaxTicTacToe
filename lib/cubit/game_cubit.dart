@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:bloc_test/algoritm/min-max.dart';
 import 'package:bloc_test/models/game.dart';
+import 'package:bloc_test/models/move.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GameCubit extends Cubit<GameState> {
@@ -71,34 +71,6 @@ class GameCubit extends Cubit<GameState> {
     return Player.None;
   }
 
-  bool _checkGameOver(List<List<Player>> board) {
-    // Horizontal, Vertical & Diagonal check for a winner
-
-    for (int i = 0; i < 3; i++) {
-      if (board[i][0] != Player.None &&
-          board[i][0] == board[i][1] &&
-          board[i][1] == board[i][2]) {
-        return true;
-      }
-      if (board[0][i] != Player.None &&
-          board[0][i] == board[1][i] &&
-          board[1][i] == board[2][i]) {
-        return true;
-      }
-    }
-    if (board[0][0] != Player.None &&
-        board[0][0] == board[1][1] &&
-        board[1][1] == board[2][2]) {
-      return true;
-    }
-    if (board[0][2] != Player.None &&
-        board[0][2] == board[1][1] &&
-        board[1][1] == board[2][0]) {
-      return true;
-    }
-
-    return false;
-  }
 
   bool _checkDraw(List<List<Player>> board) {
     print('check1');
@@ -161,7 +133,6 @@ class GameCubit extends Cubit<GameState> {
   }
 
   int evaluate(GameState state) {
-    // Checking for Rows for X or O victory.
     for (int row = 0; row < 3; row++) {
       if (state.board[row][0] == state.board[row][1] &&
           state.board[row][1] == state.board[row][2]) {
@@ -171,7 +142,6 @@ class GameCubit extends Cubit<GameState> {
       }
     }
 
-    // Checking for Columns for X or O victory.
     for (int col = 0; col < 3; col++) {
       if (state.board[0][col] == state.board[1][col] &&
           state.board[1][col] == state.board[2][col]) {
@@ -181,7 +151,6 @@ class GameCubit extends Cubit<GameState> {
       }
     }
 
-    // Checking for Diagonals for X or O victory.
     if (state.board[0][0] == state.board[1][1] &&
         state.board[1][1] == state.board[2][2]) {
       if (state.board[0][0] == Player.O)
@@ -196,7 +165,6 @@ class GameCubit extends Cubit<GameState> {
       else if (state.board[0][2] == Player.X) return -10;
     }
 
-    // Else if none of them have won then return 0
     return 0;
   }
 
@@ -224,16 +192,23 @@ class GameCubit extends Cubit<GameState> {
     return bestMove;
   }
 
+  bool isMovesLeft(GameState state) {
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        if (state.board[i][j] == Player.None) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
   int minimax(GameState state, int depth, bool isMaximizingPlayer) {
     int score = evaluate(state);
 
-    // If Maximizer has won the game return evaluated score
     if (score == 10) return score;
 
-    // If Minimizer has won the game return evaluated score
     if (score == -10) return score;
 
-    // If no more moves and no winner then it is a tie
     if (!isMovesLeft(state)) return 0;
 
     if (isMaximizingPlayer) {
